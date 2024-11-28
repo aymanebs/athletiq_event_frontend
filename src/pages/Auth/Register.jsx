@@ -9,8 +9,7 @@ const Register = () =>{
 
     const onFormSubmit = async(data) =>{
         try{
-            const response = await registerUser(data);
-            console.log('response', response); 
+            const response = await registerUser(data); 
         }
         catch(error){
             throw error;
