@@ -6,12 +6,16 @@ import Register from "../pages/Auth/register"
 
 const AppRouter = () =>{
 return(
-    <Routes>
+  <Routes>
     <Route path="/" element={<div>Welcome to the App</div>} /> 
-    <Route element={<AuthLayout />}>
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-    </Route>
+
+      <Route element={<AuthLayout Title="Login to Your Account" />}>
+        <Route path="login" element={<Login />} />
+      </Route>
+      <Route element={<AuthLayout />}>
+         <Route path="register" element={<Register />} />
+      </Route>
+
   </Routes>
 )
 

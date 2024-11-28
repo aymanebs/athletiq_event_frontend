@@ -35,7 +35,7 @@ body .auth-layout-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* background-image: url("../imgs/worldMap.svg"); */
+    background-image: url("../assets/imgs/auth_background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -63,19 +63,25 @@ body .auth-layout-wrapper {
     color: #F1F1F2;
     flex: 0 0 45%;
     max-width: 600px;
-}
-
-.left h1 {
-    font-size: var(--fs-large);
-    margin-bottom: 20px;
-}
-
-.left p {
-    font-size: 18px;
-    line-height: 2;
-    width: 70%;
-    font-weight: bold;
-}
+    }
+    .left h1 {
+    font-size: 50px; 
+    font-weight: bold; 
+    margin-bottom: 30px; 
+    overflow-wrap: break-word; 
+    max-width: 100%; 
+    font-family: 'Montserrat', sans-serif; 
+    text-transform: uppercase;
+    }
+    .left p {
+    font-size: 17px; 
+    font-weight:100; 
+    line-height: 1.5; 
+    overflow-wrap: break-word; 
+    max-width: 100%; 
+    color: #bfbfbf; 
+   
+    }
 
 @media screen and (max-width: 1023px) {
     .left {
@@ -84,6 +90,7 @@ body .auth-layout-wrapper {
         margin-bottom: 3rem;
     }
 }
+
 
 .right {
     flex: 0 0 40%;
@@ -98,7 +105,7 @@ body .auth-layout-wrapper {
 }
 
 .right .heading {
-    background-color: #1995AD;
+    background-color: #211215;
     border-radius: 8px;
     padding: 1rem;
     color: #F1F1F2;
@@ -117,7 +124,7 @@ body .auth-layout-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: rgba(255, 255, 255, 0.70);
+    background: rgb(255, 255, 255);
 
     border-radius: 8px;
     padding: 2rem;
@@ -166,7 +173,7 @@ body .auth-layout-wrapper {
 .btn {
     width: 100%;
     padding: 1rem;
-    background-color: #1995AD;
+    background-color: #211215;
     color: white;
     font-size: var(--fs-default);
     text-transform: uppercase;
@@ -179,7 +186,7 @@ body .auth-layout-wrapper {
 }
 
 .btn:hover {
-    background-color: #A1D6E2;
+    background-color: #635185;
 }
 
 
@@ -219,13 +226,13 @@ body .auth-layout-wrapper {
 .right .form-group #form .form-options .link {
     font-size: 14px;
     font-weight: bold;
-    color: #1995AD;
+    color: #211215;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .right .form-group #form .form-options .link:hover {
-    color: var(--clr-dark-blue);
+    color: #635185;
 }
 
 

@@ -7,7 +7,7 @@ function AuthLayout({ Title = "Join our community" }) {
       <div className="wrapper">
         <section className="left">
           <h1>AthletiQ Event</h1>
-          <p>Join us now and experience seamless events at your fingertips!</p>
+          <p>Join us now and experience events at your fingertips!</p>
         </section>
         <section className="right">
           <h2 className="heading">
