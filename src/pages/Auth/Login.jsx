@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import errorIcon from "/icons/icon-error.svg"
 import { login } from "../../api/authApi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Login = () =>{
 
     const {register,handleSubmit,formState:{errors}} = useForm();
 
+    const navigate =useNavigate();
+
     const onFormSubmit = async(data) =>{
         try{
             const response = await login(data);
-            console.log('response', response); 
+            localStorage.setItem('acces_token',response.acces_token);
+            navigate('/home');
         }
         catch(error){
             throw error;
@@ -42,7 +45,6 @@ const Login = () =>{
         </div>
 
         <button type="submit" className="btn btn-green" >Submit</button>
-
 
         </form>
 
