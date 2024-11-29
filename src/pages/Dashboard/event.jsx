@@ -39,8 +39,6 @@ const Event = () =>{
 
     const handleEditClick = (event) => {
         setSelectedEvent(event); 
-        console.log('event', event );
-        console.log('selectedEvent', selectedEvent );
         setIsUpdateModalOpen(true);
       };
 
