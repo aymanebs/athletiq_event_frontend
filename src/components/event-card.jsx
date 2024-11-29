@@ -1,8 +1,10 @@
 import React from 'react';
 import { Calendar, Edit, MapPin, Trash, Users } from 'lucide-react';
 import EventTypeBadge from './event-type-badge';
+import { Link } from 'react-router';
 
-const EventCard = ({ image, title, date, time, location, capacity, type = 'Conference', typeColor = 'bg-blue-100 text-blue-800', onEdit, onDelete }) => (
+const EventCard = ({ id, image, title, date, time, location, capacity, type = 'Conference', typeColor = 'bg-blue-100 text-blue-800', onEdit, onDelete }) => (
+<Link to={`/events/${id}/participants`} className='block'>
   <div className="bg-white rounded-lg shadow-lg overflow-hidden relative transition-transform transform hover:scale-105 hover:shadow-2xl">
     <img className="h-32 w-full object-cover" src={image || '/api/placeholder/300/150'} alt={title} />
     <div className="p-3 space-y-2">
@@ -36,6 +38,7 @@ const EventCard = ({ image, title, date, time, location, capacity, type = 'Confe
       </div>
     </div>
   </div>
+  </Link>
 );
 
 export default EventCard;

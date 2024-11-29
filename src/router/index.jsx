@@ -29,7 +29,7 @@ return(
       </Route>
 
       <Route element={<DashboardLayout/>}>
-          <Route path='participants' element={<Participant/>} />
+          <Route path='/events/:eventId/participants' element={<Participant/>} />
       </Route>
 
   </Routes>

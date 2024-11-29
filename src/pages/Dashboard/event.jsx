@@ -89,6 +89,7 @@ const Event = () =>{
             return(
              <EventCard
              key={event._id}
+             id={event._id}
              image="/api/placeholder/300/150"
              title={event.title}
              date={event.date}

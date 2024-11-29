@@ -44,3 +44,14 @@ export const deleteEvent = async (eventId) =>{
         throw error;
     }
 }
+
+export const getOneEvent = async(eventId) => {
+    try{
+        const response = await apiClient.get(`/events/${eventId}`);
+        return response.data;
+    }
+    catch(error){
+        console.error('Failed to fetch the event',error);
+        throw error;
+    }
+}

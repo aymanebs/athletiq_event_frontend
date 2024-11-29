@@ -1,6 +1,32 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { getOneEvent } from "../../api/eventApi";
 
 
 const Participant = () =>{
+
+    const {eventId} = useParams();
+    const[event,setEvent]=useState(null);
+    const [participants, setParticipants] =useState([]);
+
+    console.log('eventId', eventId);
+
+    useEffect(()=>{
+        const fetchEvent = async (eventId)=>{
+            try{
+                const data = await getOneEvent(eventId);
+                setEvent(data);
+                setParticipants(data.participants); 
+            }
+            catch(error){
+                throw error;
+            }
+        }
+
+        fetchEvent(eventId);
+    },[eventId]);
+
+
     return(
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white shadow-lg rounded-xl overflow-hidden">
@@ -15,9 +41,6 @@ const Participant = () =>{
               <thead className="bg-gray-100">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    ID
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Full Name
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -31,8 +54,52 @@ const Participant = () =>{
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-              </tbody>
+             
+                 <tbody className="bg-white divide-y divide-gray-200">
+                
+                {participants.map((participant)=>{
+                return(
+
+                            <tr 
+                            key={participant._id} 
+                            className="hover:bg-gray-50 transition-colors duration-200"
+                        >
+                           
+                            <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm font-medium text-gray-900">
+                                {participant.fullname}
+                            </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-500">
+                                {participant.email}
+                            </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {participant.phone}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div className="flex items-center space-x-2">
+                                <button 
+                                className="text-blue-600 hover:text-blue-900 transition-colors duration-200"
+                                onClick={() => {/* View Details */}}
+                                >
+                                View
+                                </button>
+                                <button 
+                                className="text-red-600 hover:text-red-900 transition-colors duration-200"
+                                onClick={() => {/* Remove Participant */}}
+                                >
+                                Remove
+                                </button>
+                            </div>
+                            </td>
+                        </tr>
+                        )
+                    })}
+                </tbody>
+              
+             
             </table>
           </div>
   
