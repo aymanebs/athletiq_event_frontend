@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { createEvent } from "../api/eventApi";
 
 
-const AddEventModal = ({ isOpen, onClose, onSubmit }) => {
+const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -11,8 +11,9 @@ const AddEventModal = ({ isOpen, onClose, onSubmit }) => {
   const onFormSubmit = async (data) => {
     try {
       setIsSubmitting(true);
+      data.capacity = Number(data.capacity);
       const response = await createEvent(data); 
-      onSubmit(response); 
+      onSubmit(response);  
       reset(); 
       onClose(); 
     } catch (error) {
