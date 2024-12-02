@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { addParticipant } from "../api/participantApi";
+import { toast } from "sonner";
+
 
 
 const AddParticipantModal = ({ id, isOpen, onClose, onSubmit }) => {
@@ -14,9 +16,12 @@ const AddParticipantModal = ({ id, isOpen, onClose, onSubmit }) => {
       const response = await addParticipant(id,data); 
       onSubmit(response); 
       reset(); 
-      onClose(); 
+      onClose();
+      toast.success('Partcipant submitted');
+      
     } catch (error) {
       console.error("Error inserting participant", error);
+      toast.error(error);
       throw error;
     } finally {
       setIsSubmitting(false);

@@ -4,6 +4,8 @@ import { deleteEvent, getEvents } from "../../api/eventApi.js";
 import AddEventModal from "../../components/add-event-modal";
 import UpdateEventModal from "../../components/update-event-modal.jsx";
 import DeleteConfirmationModal from "../../components/delete-confirmation-modal.jsx";
+import { getImageUrl } from "../../utils/get-image.js";
+import { formattedDate } from "../../utils/date-format.js";
 
 
 
@@ -88,10 +90,9 @@ const Event = () =>{
              <EventCard
              key={event._id}
              id={event._id}
-             image="/api/placeholder/300/150"
+             image={getImageUrl(event.image)}
              title={event.title}
-             date={event.date}
-            //  time={event.date}
+             date={formattedDate(event.date)}
              location={event.address}
              capacity={event.capacity}
              type={event.type}

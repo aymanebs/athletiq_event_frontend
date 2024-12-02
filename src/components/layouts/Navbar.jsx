@@ -1,7 +1,15 @@
 import React from 'react';
-import { Bell, Search, User } from 'lucide-react';
+import { Bell, Search, User, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    navigate('/login',{ replace: true });
+  };
+
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-3">
       <div className="flex items-center justify-between">
@@ -22,9 +30,14 @@ const Navbar = () => {
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium">John Doe</span>
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <User size={20} />
+            <span className="text-sm font-medium"></span>
+  
+            <button 
+              onClick={handleLogout}
+              className="p-2 hover:bg-gray-100 rounded-full"
+              title="Logout"
+            >
+              <LogOut size={20} />
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createEvent } from "../api/eventApi";
-
+import { toast } from "sonner";
 
 const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -11,14 +11,26 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
   const onFormSubmit = async (data) => {
     try {
       setIsSubmitting(true);
-      data.capacity = Number(data.capacity);
-      const response = await createEvent(data); 
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("capacity", Number(data.capacity));
+      formData.append("date", data.date);
+      formData.append("type", data.type);
+      formData.append("address", data.address);
+      if (data.image && data.image[0]) {
+        formData.append("image", data.image[0]); 
+      }
+
+      const response = await createEvent(formData); 
       onSubmit(response);  
       reset(); 
       onClose(); 
-    } catch (error) {
+      toast.success('Event has been created');
+    }  catch (error) {
       console.error("Error creating event", error);
-      throw error;
+      toast.error(error);
+      throw error;    
     } finally {
       setIsSubmitting(false);
     }
@@ -30,7 +42,7 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
       <div className="bg-white rounded-lg p-6 w-full max-w-lg max-h-screen overflow-auto">
         <h2 className="text-xl font-bold mb-4">Create an Event</h2>
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+        <form onSubmit={handleSubmit(onFormSubmit)} encType="multipart/form-data">
           <div className="space-y-4">
             {/* Title */}
             <label htmlFor="title" className="block text-sm font-medium text-gray-700">Event Title</label>
@@ -38,7 +50,7 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
               type="text"
               placeholder="Event Title"
               className="w-full border rounded px-3 py-2 "
-              {...register("title", { required: "Title is required",minLength:{value:8,message:'Title must be at least 5 characters long'} })}
+              {...register("title", { required: "Title is required",minLength:{value:5,message:'Title must be at least 5 characters long'} })}
             />
             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
 
@@ -76,10 +88,14 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
               className="w-full border rounded px-3 py-2 uppercase"
               {...register("type", { required: "Event Type is required" })}
             >
-              <option value="">Select Event Type</option>
-              <option value="Conference">Conference</option>
-              <option value="WORKSHOP">Workshop</option>
-              <option value="Meetup">Meetup</option>
+                <option value="">Select Event Type</option>
+                <option value="Conference">Conference</option>
+                <option value="WORKSHOP">Workshop</option>
+                <option value="Meetup">Meetup</option>
+                <option value="COMPETITION">Competition</option>
+                <option value="TOURNAMENT">Tournament</option>
+                <option value="CHARITY">Charity</option>
+                <option value="EXHIBITION">Exhibition</option>
             </select>
             {errors.type && <span className="text-red-500">{errors.type.message}</span>}
 
@@ -92,7 +108,30 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
               {...register("address", { required: "Address is required" })}
             />
             {errors.address && <span className="text-red-500">{errors.address.message}</span>}
+
+                {/* Image Upload */}
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700">Event Image</label>
+            {/* {previewImage && <img src={previewImage} alt="Event Preview" className="w-full h-48 object-cover mb-2" />} */}
+            <input
+              type="file"
+              accept="image/jpeg, image/png, image/gif"  
+              className="w-full border rounded px-3 py-2"
+              {...register("image", {
+                validate: {
+                  maxSize: (file) => {
+                    if (file[0]?.size > 5 * 1024 * 1024) { 
+                      return "File size should be less than 5MB";
+                    }
+                    return true;
+                  }
+                }
+              })}
+              
+            />
+            {errors.image && <span className="text-red-500">{errors.image.message}</span>}
           </div>
+
+       
 
           <div className="flex justify-end mt-4 space-x-2">
             <button

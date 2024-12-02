@@ -1,3 +1,4 @@
+
 import apiClient from "../config/axios"
 
 
@@ -8,6 +9,7 @@ export const  login = async(loginData)=>{
     }
     catch(error){
         console.error('Error to log in', error);
+        toast.success('Participant added successfully!'); 
         throw error;
     }
 }

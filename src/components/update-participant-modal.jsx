@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { updateParticipant } from "../api/participantApi";
+import { toast } from "sonner";
 
 const UpdateParticipantModal = ({id,participant, isOpen, onClose, onSubmit }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -13,9 +14,11 @@ const UpdateParticipantModal = ({id,participant, isOpen, onClose, onSubmit }) =>
       const response = await updateParticipant(id,participant._id, data); 
       onSubmit(response); 
       reset(); 
-      onClose(); 
+      onClose();
+      toast.success('Participant updated succesfully'); 
     } catch (error) {
       console.error("Error updating participant", error);
+      toast.error(error);
       throw error;
     } finally {
       setIsSubmitting(false);

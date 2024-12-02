@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import errorIcon from "/icons/icon-error.svg"
 import { registerUser } from "../../api/authApi";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const Register = () =>{
 
@@ -10,8 +11,10 @@ const Register = () =>{
     const onFormSubmit = async(data) =>{
         try{
             const response = await registerUser(data); 
+            toast.success('User registerd');
         }
         catch(error){
+            toast.error(error);
             throw error;
         }
     };  

@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import errorIcon from "/icons/icon-error.svg"
 import { login } from "../../api/authApi";
 import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
+
 
 const Login = () =>{
 
@@ -13,9 +15,11 @@ const Login = () =>{
         try{
             const response = await login(data);
             localStorage.setItem('acces_token',response.acces_token);
-            navigate('/home');
+            navigate('/home',{ replace: true });
+            toast.success('Logged in');
         }
         catch(error){
+            toast.error(error);
             throw error;
         }
     };  
