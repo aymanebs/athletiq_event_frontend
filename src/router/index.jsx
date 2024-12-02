@@ -26,7 +26,7 @@ const AppRouter = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route element={<PublicRoute />}>
+     
       <Route path="/" element={<div>Welcome to the App</div>} />
       <Route element={<AuthLayout Title="Login to Your Account" />}>
         <Route path="login" element={<Login />} />
@@ -34,7 +34,7 @@ const AppRouter = () => {
       <Route element={<AuthLayout />}>
         <Route path="register" element={<Register />} />
       </Route>
-      </Route>
+      
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>

@@ -16,16 +16,16 @@ const Participant = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchEvent = async (eventId) => {
+    const fetchEvent = async () => {
       try {
         const data = await getOneEvent(eventId);
         setEvent(data);
         setParticipants(data.participants);
       } catch (error) {
-        throw error;
+        console.error(error);
       }
     };
-    fetchEvent(eventId);
+    fetchEvent();
   }, [eventId]);
 
   const handleAddParticipant = (newParticipant) => {
@@ -33,14 +33,14 @@ const Participant = () => {
     setIsAddModalOpen(false);
   };
 
-  const handleReomveParticipant = async (participantId) => {
+  const handleRemoveParticipant = async (participantId) => {
     try {
       const data = await removeParticipant(eventId, participantId);
       setParticipants((prevParticipants) =>
         prevParticipants.filter((participant) => participant._id !== data)
       );
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   };
 
@@ -67,9 +67,9 @@ const Participant = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
-       {/* Event Details Section */}
-       <div className="bg-white shadow-xl rounded-xl overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        {/* Event Details Section */}
+        <div className="bg-white shadow-xl rounded-xl overflow-hidden">
           <div className="bg-gray-50 px-4 py-5 sm:px-6">
             <div className="flex justify-between items-center">
               <div>
@@ -100,93 +100,95 @@ const Participant = () => {
             </div>
           </div>
         </div>
-       {/* Participants Section */}
-      <div className="bg-white shadow-xl rounded-xl overflow-hidden">
-        <div className="bg-gray-50 px-4 py-5 sm:px-6 flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-gray-900">Event Participants</h2>
-          <div className="flex items-center space-x-2">
-            <button
-              className="bg-gray-900 hover:bg-gray-700 text-white p-2 rounded-full flex items-center justify-center transition-colors duration-200"
-              onClick={() => setIsAddModalOpen(true)}
-              title="Add Participant"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
-            <CSVLink
-              data={csvData}
-              filename="participants.csv" 
-              className="bg-gray-900 hover:bg-gray-700 text-white p-2 rounded-full flex items-center justify-center transition-colors duration-200"
-              title="Download Participants"
-            >
-              <Download className="w-5 h-5" />
-            </CSVLink>
+
+        {/* Participants Section */}
+        <div className="bg-white shadow-xl rounded-xl overflow-hidden">
+          <div className="bg-gray-50 px-4 py-5 sm:px-6 flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-900">Event Participants</h2>
+            <div className="flex items-center space-x-2">
+              <button
+                className="bg-gray-900 hover:bg-gray-700 text-white p-2 rounded-full flex items-center justify-center transition-colors duration-200"
+                onClick={() => setIsAddModalOpen(true)}
+                title="Add Participant"
+              >
+                <Plus className="w-5 h-5" />
+              </button>
+              <CSVLink
+                data={csvData}
+                filename="participants.csv" 
+                className="bg-gray-900 hover:bg-gray-700 text-white p-2 rounded-full flex items-center justify-center transition-colors duration-200"
+                title="Download Participants"
+              >
+                <Download className="w-5 h-5" />
+              </CSVLink>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full divide-y divide-gray-200">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {participants.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="text-center py-4 text-gray-500">No participants found.</td>
+                  </tr>
+                ) : (
+                  participants.map((participant) => (
+                    <tr key={participant._id} className="hover:bg-gray-50 transition-colors duration-200">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{participant.fullname}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-500">{participant.email}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{participant.phone}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex items-center space-x-2">
+                          <button
+                            className="text-blue-600 hover:text-blue-900 transition-colors duration-200 p-1 rounded-full hover:bg-blue-100"
+                            onClick={() => handleEditClick(participant)}
+                            title="Edit Participant"
+                          >
+                            <Edit className="w-5 h-5" />
+                          </button>
+                          <button
+                            className="text-red-600 hover:text-red-900 transition-colors duration-200 p-1 rounded-full hover:bg-red-100"
+                            onClick={() => handleRemoveParticipant(participant._id)}
+                            title="Remove Participant"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full divide-y divide-gray-200">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {participants.length === 0 ? (
-                <tr>
-                  <td colSpan="4" className="text-center py-4 text-gray-500">No participants found.</td>
-                </tr>
-              ) : (
-                participants.map((participant) => (
-                  <tr key={participant._id} className="hover:bg-gray-50 transition-colors duration-200">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{participant.fullname}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{participant.email}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{participant.phone}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center space-x-2">
-                        <button
-                          className="text-blue-600 hover:text-blue-900 transition-colors duration-200 p-1 rounded-full hover:bg-blue-100"
-                          onClick={() => handleEditClick(participant)}
-                          title="Edit Participant"
-                        >
-                          <Edit className="w-5 h-5" />
-                        </button>
-                        <button
-                          className="text-red-600 hover:text-red-900 transition-colors duration-200 p-1 rounded-full hover:bg-red-100"
-                          onClick={() => handleReomveParticipant(participant._id)}
-                          title="Remove Participant"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
       </div>
-      
+
+      {/* Add Participant Modal */}
       <AddParticipantModal
-        id={eventId}
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddParticipant}
+        onAddParticipant={handleAddParticipant}
       />
 
+      {/* Update Participant Modal */}
       <UpdateParticipantModal
-        id={eventId}
         isOpen={isUpdateModalOpen}
         onClose={() => setIsUpdateModalOpen(false)}
-        onSubmit={handleUpdate}
         participant={selectedParticipant}
+        onUpdate={handleUpdate}
       />
     </div>
   );
