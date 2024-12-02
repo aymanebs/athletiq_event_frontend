@@ -5,7 +5,8 @@ import Register from "../pages/Auth/Register";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Home from "../pages/Dashboard/Home";
 import Event from "../pages/Dashboard/Event";
-import Participant from "../pages/Dashboard/participant";
+import Participant from "../pages/Dashboard/Participant";
+
 
 
 // Protected Route 
@@ -40,7 +41,7 @@ const AppRouter = () => {
         <Route element={<DashboardLayout />}>
           <Route path="home" element={<Home />} />
           <Route path="events" element={<Event />} />
-          <Route path="events/:eventId/participants" element={<Participant />} />
+          <Route path="events/:eventId/participants" element={<Participant/>} />
         </Route>
       </Route>
     </Routes>

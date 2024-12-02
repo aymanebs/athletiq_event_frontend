@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getOneEvent } from "../../api/eventApi";
-import AddParticipantModal from "../../components/add-participant-modal";
+import AddParticipantModal from "../../components/Add-participant-modal";
 import { removeParticipant } from "../../api/participantApi";
-import UpdateParticipantModal from "../../components/update-participant-modal";
+import UpdateParticipantModal from "../../components/Update-participant-modal";
 import { Plus, Download, Edit, Trash2 } from "lucide-react";
-import { CSVLink } from "react-csv"; // Import CSVLink
+import { CSVLink } from "react-csv"; 
 
 const Participant = () => {
   const { eventId } = useParams();
@@ -58,7 +58,7 @@ const Participant = () => {
     setIsUpdateModalOpen(false);
   };
 
-  // Prepare data for CSV download
+  // Prepare data for download
   const csvData = participants.map((participant) => ({
     fullname: participant.fullname,
     email: participant.email,

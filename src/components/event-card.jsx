@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Edit, MapPin, Trash, Users } from 'lucide-react';
-import EventTypeBadge from './event-type-badge';
+import EventTypeBadge from './Event-type-badge';
 import { Link } from 'react-router';
 
 const EventCard = ({
