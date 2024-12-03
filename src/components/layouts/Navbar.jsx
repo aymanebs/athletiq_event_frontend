@@ -1,11 +1,15 @@
 import React from 'react';
-import { Bell, Search, User, LogOut } from 'lucide-react';
+import { Bell, Search, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLogout } from '../../store/authSlice';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
+    dispatch(setLogout());
     localStorage.removeItem('access_token');
     navigate('/login',{ replace: true });
   };

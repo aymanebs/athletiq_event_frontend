@@ -3,6 +3,8 @@ import errorIcon from "/icons/icon-error.svg"
 import { login } from "../../api/authApi";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../store/authSlice";
 
 
 const Login = () =>{
@@ -10,11 +12,13 @@ const Login = () =>{
     const {register,handleSubmit,formState:{errors}} = useForm();
 
     const navigate =useNavigate();
+    const dispatch = useDispatch();
 
     const onFormSubmit = async(data) =>{
         try{
             const response = await login(data);
-            localStorage.setItem('acces_token',response.acces_token);
+            console.log('response',response);
+            dispatch(setLogin({acces_token:response.acces_token}));
             navigate('/home',{ replace: true });
             toast.success('Logged in');
         }

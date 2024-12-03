@@ -6,18 +6,19 @@ import DashboardLayout from "../components/layouts/DashboardLayout";
 import Home from "../pages/Dashboard/Home";
 import Event from "../pages/Dashboard/Event";
 import Participant from "../pages/Dashboard/Participant";
+import { useSelector } from "react-redux";
 
 
 
 // Protected Route 
 const ProtectedRoute = () => {
-  const isAuthenticated = localStorage.getItem("acces_token");
+  const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated);
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 // Public Route
 const PublicRoute = () => {
-  const isAuthenticated = localStorage.getItem("acces_token");
+  const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated);
   return isAuthenticated ? <Navigate to="/home" replace /> : <Outlet />;
 };
 
@@ -26,7 +27,7 @@ const AppRouter = () => {
   return (
     <Routes>
       {/* Public Routes */}
-     
+    <Route element={<PublicRoute/>}>
       <Route path="/" element={<div>Welcome to the App</div>} />
       <Route element={<AuthLayout Title="Login to Your Account" />}>
         <Route path="login" element={<Login />} />
@@ -34,7 +35,7 @@ const AppRouter = () => {
       <Route element={<AuthLayout />}>
         <Route path="register" element={<Register />} />
       </Route>
-      
+    </Route> 
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
