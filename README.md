@@ -1,4 +1,4 @@
-# Sport Event Reservation App
+# ATHLETIQ EVENT
 
 This is a web application designed for managing sport event reservations in a back-office context. It allows users to create and manage events, handle participants, and download participant data. The application is built with **React** on the frontend and **NestJS** on the backend.
 
