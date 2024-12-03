@@ -17,7 +17,6 @@ const Login = () =>{
     const onFormSubmit = async(data) =>{
         try{
             const response = await login(data);
-            console.log('response',response);
             dispatch(setLogin({acces_token:response.acces_token}));
             navigate('/home',{ replace: true });
             toast.success('Logged in');
