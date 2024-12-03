@@ -1,12 +1,15 @@
-import { useState } from 'react'
-import './App.css'
+import { Provider } from 'react-redux';
+import AppRouter from './router'
+import { Toaster } from 'sonner';
+import store from './store';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-
+      <Provider store={store}>
+        <Toaster position="top-right"  richColors/>
+        <AppRouter/>
+      </Provider> 
     </>
   )
 }
