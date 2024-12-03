@@ -4,11 +4,8 @@ import UpdateEventModal from "../../components/Update-event-modal.jsx";
 import DeleteConfirmationModal from "../../components/Delete-confirmation-modal.jsx";
 import { getImageUrl } from "../../utils/get-image.js";
 import { formattedDate } from "../../utils/date-format.js";
-import AddEventModal from "../../components/Add-event-modal.jsx";
-import EventCard from "../../components/Event-card.jsx";
-
-
-
+import AddEventModal from "../../components/add-event-modal.jsx";
+import EventCard from "../../components/event-card.jsx";
 
 const Event = () =>{
 

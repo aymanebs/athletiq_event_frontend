@@ -5,8 +5,10 @@ import Register from "../pages/Auth/Register";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import Home from "../pages/Dashboard/Home";
 import Event from "../pages/Dashboard/Event";
-import Participant from "../pages/Dashboard/Participant";
+
 import { useSelector } from "react-redux";
+import Participant from "../pages/Dashboard/participant";
+import { Demo } from "../pages/Dashboard/Demo";
 
 
 
