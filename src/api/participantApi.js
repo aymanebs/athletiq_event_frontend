@@ -7,7 +7,7 @@ export const addParticipant = async (eventId,participantData) => {
     }
     catch(error){
         console.error('Failed to insert participant');
-        throw error;
+        toast.error('Failed to insert participant');
     }
 }
 
@@ -18,7 +18,7 @@ export const removeParticipant = async(eventId,participantId) => {
     }
     catch(error){
         console.error('Failed to remove participant from event',error);
-        throw error;
+        toast.error('Failed to remove participant from event');
     }
 }
 
@@ -29,7 +29,7 @@ export const updateParticipant = async(eventId,participantId,participantData) =>
     }
     catch(error){
         console.error('Failed to update the participant',error);
-        throw error;
+        toast.error('Failed to update the participant');
     }
 } 
 

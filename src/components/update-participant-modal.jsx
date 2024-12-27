@@ -18,7 +18,7 @@ const UpdateParticipantModal = ({id,participant, isOpen, onClose, onSubmit }) =>
       toast.success('Participant updated succesfully'); 
     } catch (error) {
       console.error("Error updating participant", error);
-      toast.error(error);
+      toast.error("Error updating participant");
       throw error;
     } finally {
       setIsSubmitting(false);

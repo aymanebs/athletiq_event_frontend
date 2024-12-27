@@ -105,7 +105,7 @@ This starts both frontend and backend services.
 
 ## Usage
 
-- **Login / Register**: Navigate to `/login` or `/register`
+- **Login / Register**: Navigate to `/` or `/register`
 - **Dashboard**: View and manage events after login
 - **Manage Participants**: Click on events to add, update, or remove participants
 - **CSV Export**: Download participant data via export button

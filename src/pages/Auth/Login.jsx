@@ -22,8 +22,7 @@ const Login = () =>{
             toast.success('Logged in');
         }
         catch(error){
-            toast.error(error);
-            throw error;
+            console.error(error);
         }
     };  
     const onErrors = errors => console.error(errors);
