@@ -29,7 +29,7 @@ const AddEventModal = ({ isOpen, onClose,  onSubmit }) => {
       toast.success('Event has been created');
     }  catch (error) {
       console.error("Error creating event", error);
-      toast.error(error);
+      toast.error("Error creating event");
       throw error;    
     } finally {
       setIsSubmitting(false);

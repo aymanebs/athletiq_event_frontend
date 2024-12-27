@@ -14,7 +14,7 @@ import Participant from "../pages/Dashboard/participant";
 // Protected Route 
 const ProtectedRoute = () => {
   const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated);
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 // Public Route
@@ -29,8 +29,8 @@ const AppRouter = () => {
     <Routes>
       {/* Public Routes */}
     <Route element={<PublicRoute/>}>
-      <Route path="/" element={<div>Welcome to the App</div>} />
       <Route element={<AuthLayout Title="Login to Your Account" />}>
+        <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
       </Route>
       <Route element={<AuthLayout />}>

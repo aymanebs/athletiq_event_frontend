@@ -21,7 +21,7 @@ const AddParticipantModal = ({ id, isOpen, onClose, onSubmit }) => {
       
     } catch (error) {
       console.error("Error inserting participant", error);
-      toast.error(error);
+      toast.error("Error inserting participant");
       throw error;
     } finally {
       setIsSubmitting(false);

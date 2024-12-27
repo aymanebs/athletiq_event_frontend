@@ -8,7 +8,7 @@ export const getEvents = async()=>{
     }
     catch(error){
         console.error('Failed to fetch events',error)
-        throw error;     
+        toast.error('Failed to fetch events');    
     }   
 }
 
@@ -19,7 +19,7 @@ export const createEvent = async(eventData)=>{
     }
     catch(error){
         console.error('Failed to create event',error);
-        throw error;
+        toast.error('Failed to create event');
     }
 }
 
@@ -30,7 +30,7 @@ export const updateEvent = async (eventId,data)=>{
     }
     catch(error){
         console.error('Failed to update event',error);
-        throw error;
+        toast.error('Failed to update event');
     }
 }
 
@@ -41,7 +41,7 @@ export const deleteEvent = async (eventId) =>{
     }
     catch(error){
         console.error('Failed to delete event',error);
-        throw error;
+        toast.error('Failed to delete event');
     }
 }
 
@@ -52,6 +52,6 @@ export const getOneEvent = async(eventId) => {
     }
     catch(error){
         console.error('Failed to fetch the event',error);
-        throw error;
+        toast.error('Failed to fetch the event');
     }
 }

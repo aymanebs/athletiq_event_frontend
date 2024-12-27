@@ -14,7 +14,7 @@ const Register = () =>{
             toast.success('User registerd');
         }
         catch(error){
-            toast.error(error);
+            toast.error('Register failed.');
             throw error;
         }
     };  
@@ -57,7 +57,7 @@ const Register = () =>{
          </div>
 
          <div className="form-options">
-                 <Link to="/login" className="link">Already have an account ?</Link>                 
+                 <Link to="/" className="link">Already have an account ?</Link>                 
         </div>
 
         <button type="submit" className="btn btn-green" >Submit</button>
